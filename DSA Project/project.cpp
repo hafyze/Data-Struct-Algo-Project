@@ -13,12 +13,15 @@ struct ListNode{
 
 };
 
-void sortLinkedList(vector<int>& number, int size){               //  Function to sort link list  //
+//  Function to sort link list  //
+void sortLinkedList(vector<int>& number, int size){            
 
-    for(int i = 0; i < size - 1; i++){                           // Loop entire array
+    // Loop entire array
+    for(int i = 0; i < size - 1; i++){                           
         int min = i;
 
-        for(int j = i+1; j < size; j++){                         // Loops the to find minimum element
+        // Loops the to find minimum element
+        for(int j = i+1; j < size; j++){                        
             if(number[j] < number[min]) {
                 min = j;
             }
@@ -28,40 +31,51 @@ void sortLinkedList(vector<int>& number, int size){               //  Function t
             swap(number[i], number[min]);
         }
     }
-}                                                               //         END           //
+}                                                               
 
+//  DISPLAY SORTED LIST FUNCTION  //
+void displaySortedLinkedList(vector<int>& number, int size){    
 
-void displaySortedLinkedList(vector<int>& number, int size){    //  DISPLAY SORTED LIST FUNCTION  //
-
+    cout << "\nSorted Linked list: " << endl;
     for(int i = 0; i < size; i++){
         cout << "Number " << i+1 
-             << ": " << number[i] << " ";
-    }                                                           //               END              //
+             << ": " << number[i] << " " << endl;
+    }                                                           
 }
 
-void variableAssign(vector<int>& number, int size){
-    for(int i=0; i<size; i++){                                  // Loop to display declared variable received by the file
+// FUNCTION TO DISPLAY CURRENT Vector
+void displayVariableAssign(vector<int>& number, int size){
+    for(int i=0; i<size; i++){                                  
         cout << number[i] << endl;
     }
 }
 
-int main(){                                                     //  MAIN SECTION   //
+ //  MAIN FUNCTION   //
+int main(){                                                    
 
     vector<int> number;
-    ifstream input_file("text_input.txt");                      // Open and reads the file
+    // Open and reads the file
+    ifstream input_file("text_input.txt");                      
 
     int i;
-    while (input_file >> i) {                  
-        number.push_back(i);                                    // Using vector function to declare variable in respective index
+    // Adds value until no value is available to read
+    while (input_file >> i) {                       
+
+        // Value "i" added at vector end with push_back function
+        number.push_back(i);                                    
     }
 
-    int size = number.size();                                   // Storing the size of array tu variable
-    variableAssign(number, size);
+    // Storing the size of array tu variable
+    int size = number.size();                                   
+    displayVariableAssign(number, size);
 
-    input_file.close();                                         // Closes the file
+    // Closes the file
+    input_file.close();                                         
 
-    sortLinkedList(number, size);                               // Call function to sort linked list
-    displaySortedLinkedList(number, size);                      // Call function to display sorted linked list
+    // Call function to sort linked list
+    sortLinkedList(number, size);                    
+    // Call function to display sorted linked list           
+    displaySortedLinkedList(number, size);                     
     
     
 
