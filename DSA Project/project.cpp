@@ -39,6 +39,15 @@ void displaySortedLinkedList(vector<int>& number, int size){    //  DISPLAY SORT
     }                                                           //               END              //
 }
 
+void variableAssign(vector<int>& number, int size){
+    for(int i=0; i<size; i++){                             // Loop to display declared variable received by the file
+        cout << number[i] << endl;
+
+        if(number[i] == 0){
+            break;
+        }
+    }
+}
 
 int main(){                                                     //  MAIN SECTION   //
 
@@ -51,18 +60,14 @@ int main(){                                                     //  MAIN SECTION
     }
 
     int size = number.size();                                   // Storing the size of array tu variable
-    for(i=0; i<number.size(); i++){                             // Loop to display declared variable received by the file
-        cout << number[i] << endl;
+    variableAssign(number, size);
 
-        if(number[i] == 0){
-            break;
-        }
-    }
     input_file.close();                                         // Closes the file
 
     sortLinkedList(number, size);                               // Call function to sort linked list
     displaySortedLinkedList(number, size);                      // Call function to display sorted linked list
     
     
+
     return 0;
 }                                                               //               END                  //
