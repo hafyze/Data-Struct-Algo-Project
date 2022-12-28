@@ -12,8 +12,19 @@ struct ListNode{
     ListNode* next;
 };
 
-void sortLinkedList(const vector<int>& number){
+void sortLinkedList(const vector<int>& number, int size){
+    // for(int i : number){
+    //     cout << i << " ";
+    // }
+    // cout << endl;
+    int min = 0, max;
+    
+    // for(int i=0; i<number.size(); i++){
+    //     if(number[i] < number){
 
+    //     }
+
+    // }
 }
 
 int main(){
@@ -26,7 +37,9 @@ int main(){
         number.push_back(i);
     }
 
-    for(i=0; i<SIZE; i++){
+    int size = number.size();
+
+    for(i=0; i<number.size(); i++){
         cout << number[i] << endl;
 
         if(number[i] == 0){
@@ -35,7 +48,7 @@ int main(){
     }
     input_file.close();                     //Closes the file
 
-    sortLinkedList(number);                  //Call function to sort linked list
+    sortLinkedList(number, size);                  //Call function to sort linked list
 
     return 0;
 }
