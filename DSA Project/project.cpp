@@ -12,19 +12,29 @@ struct ListNode{
     ListNode* next;
 };
 
-void sortLinkedList(const vector<int>& number, int size){
-    // for(int i : number){
-    //     cout << i << " ";
-    // }
-    // cout << endl;
-    int min = 0, max;
+void sortLinkedList(vector<int>& number, int size){     //Function to sort link list
+
+    for(int i = 0; i < size - 1; i++){          //Loop entire array
+        int min = i;
+
+        for(int j = i+1; j < size; j++){        //Loops the to find minimum element
+            if(number[j] < number[min]) {
+                min = j;
+            }
+        }
+
+        if(min != i){
+            swap(number[i], number[min]);
+        }
+    }
+}
+
+void displaySortedLinkedList(vector<int>& number, int size){
     
-    // for(int i=0; i<number.size(); i++){
-    //     if(number[i] < number){
-
-    //     }
-
-    // }
+    for(int i = 0; i < size; i++){
+        cout << "Number " << i+1 
+             << ": " << number[i] << " ";
+    }
 }
 
 int main(){
@@ -46,9 +56,11 @@ int main(){
             break;
         }
     }
-    input_file.close();                     //Closes the file
+    input_file.close();                         //Closes the file
 
-    sortLinkedList(number, size);                  //Call function to sort linked list
+    sortLinkedList(number, size);               //Call function to sort linked list
+    displaySortedLinkedList(number, size);      //Call function to display sorted linked list
+    
 
     return 0;
 }
