@@ -8,24 +8,4 @@ list max
 list delete 20
 list search 20
 list print
-SortedLinkedList sortedList
-sortedList add 10
-sortedList add 20
-sortedList add 100
-sortedList add 50
-sortedList delete 20
-sortedList print
-LinkedStack stack
-stack add 10
-stack add 20
-stack add 100
-stack add 50
-stack delete
-stack print
-BinarySearchTree bst
-bst add 30
-bst add 50
-bst add 20
-bst add 10
-bst delete 30
-bst inorder
+
