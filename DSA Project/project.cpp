@@ -187,9 +187,8 @@ int main(){
 
     listObj.search(100);
 
+    // FUNCTION TO PRINT OUTPUT //
     printToFile(number, size);
-
-    
 
     return 0;
 } 
