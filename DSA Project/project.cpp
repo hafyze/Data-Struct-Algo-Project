@@ -3,14 +3,21 @@
 #include <string.h>
 using namespace std;
 
+const int SIZE = 100;
+
+struct ListNode{
+    int data;
+    ListNode* next;
+};
+
 int main(){
-std::ifstream input_file("text_input.txt");
-std::string line;
+    ifstream input_file("text_input.txt");
+    string line;
 
-while (std::getline(input_file, line)) {
-    std::cout << line << std::endl;
-}
-input_file.close();
+    while (getline(input_file, line)) {
+        cout << line << endl;
+    }
+    input_file.close();
 
-return 0;
+    return 0;
 }
