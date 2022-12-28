@@ -44,7 +44,7 @@ void displaySortedLinkedList(vector<int>& number, int size){
 }
 
 // FUNCTION TO DISPLAY CURRENT Vector
-void displayVariableAssign(vector<int>& number, int size){
+void displayAssignVariable(vector<int>& number, int size){
     for(int i=0; i<size; i++){                                  
         cout << number[i] << endl;
     }
@@ -67,7 +67,7 @@ int main(){
 
     // Storing the size of array tu variable
     int size = number.size();                                   
-    displayVariableAssign(number, size);
+    displayAssignVariable(number, size);
 
     // Closes the file
     input_file.close();                                         
@@ -77,7 +77,5 @@ int main(){
     // Call function to display sorted linked list           
     displaySortedLinkedList(number, size);                     
     
-    
-
     return 0;
-}                                                               //               END                  //
+} 
