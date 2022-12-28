@@ -15,13 +15,15 @@ struct ListNode{
 int main(){
     vector<int> number;
     ifstream input_file("text_input.txt");
-    string line;
 
-    cout << "Size: " << SIZE << endl;
+    //cout << "Size: " << SIZE << endl;
 
     int i;
     while (input_file >> i) {
         number.push_back(i);
+    }
+    for(i=0; i<number.size(); i++){
+        cout << number[i] << endl;
     }
     input_file.close();
 
