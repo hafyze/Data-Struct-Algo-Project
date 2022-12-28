@@ -40,12 +40,8 @@ void displaySortedLinkedList(vector<int>& number, int size){    //  DISPLAY SORT
 }
 
 void variableAssign(vector<int>& number, int size){
-    for(int i=0; i<size; i++){                             // Loop to display declared variable received by the file
+    for(int i=0; i<size; i++){                                  // Loop to display declared variable received by the file
         cout << number[i] << endl;
-
-        if(number[i] == 0){
-            break;
-        }
     }
 }
 
