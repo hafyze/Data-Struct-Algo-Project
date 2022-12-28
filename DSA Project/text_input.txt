@@ -1,4 +1,3 @@
-Linked List
 10
 20
 100

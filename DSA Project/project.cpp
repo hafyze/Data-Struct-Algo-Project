@@ -12,20 +12,30 @@ struct ListNode{
     ListNode* next;
 };
 
-int main(){
-    vector<int> number;
-    ifstream input_file("text_input.txt");
+void sortLinkedList(int number[]){
 
-    //cout << "Size: " << SIZE << endl;
+}
+
+int main(){
+    int number[SIZE];
+    ifstream input_file("text_input.txt");
 
     int i;
     while (input_file >> i) {
-        number.push_back(i);
+        cin >> number[i];
     }
-    for(i=0; i<number.size(); i++){
+
+    for(i=0; i<SIZE; i++){
         cout << number[i] << endl;
+
+        if(number[i] == 0){
+            break;
+        }
     }
-    input_file.close();
+
+    input_file.close();         //Closes the file
+
+    sortLinkedList(number);     //Call function to sort linked list
 
     return 0;
 }
