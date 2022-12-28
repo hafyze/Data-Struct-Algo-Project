@@ -26,14 +26,16 @@ class LinkedList{
         makeEmpty();
     }
 
-    void insertFront(T& element) {
+    //Adds data at front node
+    void insertFront(int element) {
         ListNode* newNode = new ListNode;
         newNode->data = element;
         newNode->next = head;
         head = newNode;
     }
 
-    void insertback(T& element) {
+    //Adds data at back node
+    void insertback(int element) {
         ListNode* newNode = new ListNode;
         newNode->data = element;
         newNode->next = nullptr;
@@ -43,7 +45,7 @@ class LinkedList{
             return;
         }
 
-        ListNode<T>* temp = head;
+        ListNode* temp = head;
         while(temp->next != nullptr){
             temp = temp->next;
         }
@@ -56,24 +58,26 @@ class LinkedList{
             return;
         }
 
-        ListNode<T>* temp = head;
+        ListNode* temp = head;
         head = head->next;
         delete temp;
     }
 
-    bool search(T& target) {
+    bool search(int target) {
         bool found = false;
-        ListNode<T>* ptr = head;
+        ListNode* ptr = head;
 
         while(ptr != nullptr && !found){
-            if(ptr->date == target) {
+            if(ptr->data == target) {
+                cout << "Value found!" << endl;
+                cout << ptr->data;
                 found = true;
             }
             else {
                 ptr = ptr->next;
             }
-            return found;
         }
+        return found;
     }
 
     bool isEmpty(){
@@ -82,14 +86,14 @@ class LinkedList{
 
     void makeEmpty(){
         while(head != nullptr){
-            ListNode<T>* ptr = head;
+            ListNode* ptr = head;
             head = head->next;
             delete ptr;
         }
     }
 
-    friend ostream& operator<< (ostream& os, LinkedList<T>& list) {
-        ListNode<T>* ptr = list.head;
+    friend ostream& operator<< (ostream& os, LinkedList& list) {
+        ListNode* ptr = list.head;
 
         while(ptr != nullptr){
             os << ptr->data << " ";
@@ -168,6 +172,8 @@ int main(){
     for(int i=0; i<size; i++){
         listObj.insertFront(number[i]);
     }
+
+    listObj.search(100);
 
     return 0;
 } 
