@@ -13,8 +13,94 @@ struct ListNode{
 
 };
 
-//  Function to sort link list  //
-void sortLinkedList(vector<int>& number, int size){            
+class LinkedList{
+    private:
+        ListNode* head;
+
+    public:
+    LinkedList(){
+        head = nullptr;
+    }
+
+    ~LinkedList(){
+        makeEmpty();
+    }
+
+    void insertFront(T& element) {
+        ListNode* newNode = new ListNode;
+        newNode->data = element;
+        newNode->next = head;
+        head = newNode;
+    }
+
+    void insertback(T& element) {
+        ListNode* newNode = new ListNode;
+        newNode->data = element;
+        newNode->next = nullptr;
+
+        if(head == nullptr){
+            head = newNode;
+            return;
+        }
+
+        ListNode<T>* temp = head;
+        while(temp->next != nullptr){
+            temp = temp->next;
+        }
+
+        temp->next = newNode;
+    }
+
+    void deleteFront(){
+        if(head == nullptr){
+            return;
+        }
+
+        ListNode<T>* temp = head;
+        head = head->next;
+        delete temp;
+    }
+
+    bool search(T& target) {
+        bool found = false;
+        ListNode<T>* ptr = head;
+
+        while(ptr != nullptr && !found){
+            if(ptr->date == target) {
+                found = true;
+            }
+            else {
+                ptr = ptr->next;
+            }
+            return found;
+        }
+    }
+
+    bool isEmpty(){
+        return head == nullptr;
+    }
+
+    void makeEmpty(){
+        while(head != nullptr){
+            ListNode<T>* ptr = head;
+            head = head->next;
+            delete ptr;
+        }
+    }
+
+    friend ostream& operator<< (ostream& os, LinkedList<T>& list) {
+        ListNode<T>* ptr = list.head;
+
+        while(ptr != nullptr){
+            os << ptr->data << " ";
+            ptr = ptr->next;
+        }
+        return os;
+    }
+};
+
+//  Function to sort  list  //
+void sortList(vector<int>& number, int size){            
 
     // Loop entire array
     for(int i = 0; i < size - 1; i++){                           
@@ -34,7 +120,7 @@ void sortLinkedList(vector<int>& number, int size){
 }                                                               
 
 //  DISPLAY SORTED LIST FUNCTION  //
-void displaySortedLinkedList(vector<int>& number, int size){    
+void displaySortedList(vector<int>& number, int size){    
 
     cout << "\nSorted Linked list: " << endl;
     for(int i = 0; i < size; i++){
@@ -72,10 +158,16 @@ int main(){
     // Closes the file
     input_file.close();                                         
 
-    // Call function to sort linked list
-    sortLinkedList(number, size);                    
-    // Call function to display sorted linked list           
-    displaySortedLinkedList(number, size);                     
+    // Call function to sort list
+    sortList(number, size);                    
+    // Call function to display sorted list           
+    displaySortedList(number, size);                     
     
+    LinkedList listObj;
+
+    for(int i=0; i<size; i++){
+        listObj.insertFront(number[i]);
+    }
+
     return 0;
 } 
