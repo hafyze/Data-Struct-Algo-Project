@@ -12,17 +12,18 @@ struct ListNode{
     ListNode* next;
 };
 
-void sortLinkedList(int number[]){
+void sortLinkedList(const vector<int>& number){
 
 }
 
 int main(){
-    int number[SIZE];
+    vector<int> number;
     ifstream input_file("text_input.txt");
+
 
     int i;
     while (input_file >> i) {
-        cin >> number[i];
+        number.push_back(i);
     }
 
     for(i=0; i<SIZE; i++){
@@ -32,10 +33,9 @@ int main(){
             break;
         }
     }
+    input_file.close();                     //Closes the file
 
-    input_file.close();         //Closes the file
-
-    sortLinkedList(number);     //Call function to sort linked list
+    sortLinkedList(number);                  //Call function to sort linked list
 
     return 0;
 }
