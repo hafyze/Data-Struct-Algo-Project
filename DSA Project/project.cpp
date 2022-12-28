@@ -140,6 +140,16 @@ void displayAssignVariable(vector<int>& number, int size){
     }
 }
 
+void printToFile(vector<int>& number, int size){
+    ofstream outfile("text_output.txt");
+
+    if(outfile.is_open()) {
+        for(int i=0; i<size; i++){
+            outfile << "list added " << number[i] << endl;
+        }
+    }
+}
+
  //  MAIN FUNCTION   //
 int main(){                                                    
 
@@ -167,6 +177,8 @@ int main(){
     // Call function to display sorted list           
     displaySortedList(number, size);                     
     
+
+    // LINKED LIST FEATURE STARTS //
     LinkedList listObj;
 
     for(int i=0; i<size; i++){
@@ -174,6 +186,10 @@ int main(){
     }
 
     listObj.search(100);
+
+    printToFile(number, size);
+
+    
 
     return 0;
 } 
