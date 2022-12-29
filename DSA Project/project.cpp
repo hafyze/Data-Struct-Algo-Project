@@ -77,6 +77,9 @@ class LinkedList{
                 ptr = ptr->next;
             }
         }
+        if(!found){
+            cout << "Value: " << target << " NOT found in Linked List!" << endl;
+        }
         return found;
     }
 
@@ -140,6 +143,11 @@ void displayAssignVariable(vector<int>& number, int size){
     }
 }
 
+void searchTarget(int& target){
+    cout << "Enter the number to search: ";
+    cin >> target ; cout << endl;
+}
+
  //  MAIN FUNCTION   //
 int main(){                                                    
 
@@ -173,7 +181,10 @@ int main(){
         listObj.insertFront(number[i]);
     }
 
-    listObj.search(100);
+    int target;
+    searchTarget(target);
+
+    listObj.search(target);
 
     return 0;
 } 
