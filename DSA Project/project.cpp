@@ -10,14 +10,111 @@ const int SIZE = 100;
 struct ListNode{
     int data;
     ListNode* next;
+
 };
 
-void sortLinkedList(vector<int>& number, int size){               //  Function to sort link list  //
+class LinkedList{
+    private:
+        ListNode* head;
 
-    for(int i = 0; i < size - 1; i++){                           //Loop entire array
+    public:
+    LinkedList(){
+        head = nullptr;
+    }
+
+    ~LinkedList(){
+        makeEmpty();
+    }
+
+    //Adds data at front node
+    void insertFront(int element) {
+        ListNode* newNode = new ListNode;
+        newNode->data = element;
+        newNode->next = head;
+        head = newNode;
+    }
+
+    //Adds data at back node
+    void insertback(int element) {
+        ListNode* newNode = new ListNode;
+        newNode->data = element;
+        newNode->next = nullptr;
+
+        if(head == nullptr){
+            head = newNode;
+            return;
+        }
+
+        ListNode* temp = head;
+        while(temp->next != nullptr){
+            temp = temp->next;
+        }
+
+        temp->next = newNode;
+    }
+
+    void deleteFront(){
+        if(head == nullptr){
+            return;
+        }
+
+        ListNode* temp = head;
+        head = head->next;
+        delete temp;
+    }
+
+    bool search(int target) {
+        bool found = false;
+        ListNode* ptr = head;
+
+        while(ptr != nullptr && !found){
+            if(ptr->data == target) {
+                cout << "Value found!" << endl;
+                cout << ptr->data;
+                found = true;
+            }
+            else {
+                ptr = ptr->next;
+            }
+        }
+        if(!found){
+            cout << "Value: " << target << " NOT found in Linked List!" << endl;
+        }
+        return found;
+    }
+
+    bool isEmpty(){
+        return head == nullptr;
+    }
+
+    void makeEmpty(){
+        while(head != nullptr){
+            ListNode* ptr = head;
+            head = head->next;
+            delete ptr;
+        }
+    }
+
+    friend ostream& operator<< (ostream& os, LinkedList& list) {
+        ListNode* ptr = list.head;
+
+        while(ptr != nullptr){
+            os << ptr->data << " ";
+            ptr = ptr->next;
+        }
+        return os;
+    }
+};
+
+//  Function to sort  list  //
+void sortList(vector<int>& number, int size){            
+
+    // Loop entire array
+    for(int i = 0; i < size - 1; i++){                           
         int min = i;
 
-        for(int j = i+1; j < size; j++){                         //Loops the to find minimum element
+        // Loops the to find minimum element
+        for(int j = i+1; j < size; j++){                        
             if(number[j] < number[min]) {
                 min = j;
             }
@@ -27,41 +124,67 @@ void sortLinkedList(vector<int>& number, int size){               //  Function t
             swap(number[i], number[min]);
         }
     }
-}                                                               //         END           //
+}                                                               
 
+//  DISPLAY SORTED LIST FUNCTION  //
+void displaySortedList(vector<int>& number, int size){    
 
-void displaySortedLinkedList(vector<int>& number, int size){    //  DISPLAY SORTED LIST FUNCTION  //
-
+    cout << "\nSorted Linked list: " << endl;
     for(int i = 0; i < size; i++){
         cout << "Number " << i+1 
-             << ": " << number[i] << " ";
-    }                                                           //               END              //
+             << ": " << number[i] << " " << endl;
+    }                                                           
 }
 
+// FUNCTION TO DISPLAY CURRENT Vector
+void displayAssignVariable(vector<int>& number, int size){
+    for(int i=0; i<size; i++){                                  
+        cout << number[i] << endl;
+    }
+}
 
-int main(){                                                     //  MAIN SECTION   //
+void searchTarget(int& target){
+    cout << "Enter the number to search: ";
+    cin >> target ; cout << endl;
+}
+
+ //  MAIN FUNCTION   //
+int main(){                                                    
 
     vector<int> number;
-    ifstream input_file("text_input.txt");                      //Open and reads the file
+    // Open and reads the file
+    ifstream input_file("text_input.txt");                      
 
     int i;
-    while (input_file >> i) {                  
-        number.push_back(i);                                    //Using vector function to declare variable in respective index
+    // Adds value until no value is available to read
+    while (input_file >> i) {                       
+
+        // Value "i" added at vector end with push_back function
+        number.push_back(i);                                    
     }
 
-    int size = number.size();                                   //Storing the size of array tu variable
-    for(i=0; i<number.size(); i++){                             //Loop to display declared variable received by the file
-        cout << number[i] << endl;
+    // Storing the size of array tu variable
+    int size = number.size();                                   
+    displayAssignVariable(number, size);
 
-        if(number[i] == 0){
-            break;
-        }
-    }
-    input_file.close();                                         //Closes the file
+    // Closes the file
+    input_file.close();                                         
 
-    sortLinkedList(number, size);                               //Call function to sort linked list
-    displaySortedLinkedList(number, size);                      //Call function to display sorted linked list
+    // Call function to sort list
+    sortList(number, size);                    
+    // Call function to display sorted list           
+    displaySortedList(number, size);                     
     
+    LinkedList listObj;
+
+    for(int i=0; i<size; i++){
+        listObj.insertFront(number[i]);
+    }
+
+    int target;
+    searchTarget(target);
+
+    listObj.search(target);
 
     return 0;
-}                                                               //               END                  //
+} 
