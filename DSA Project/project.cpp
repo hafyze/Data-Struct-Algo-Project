@@ -69,7 +69,7 @@ class LinkedList{
 
         while(ptr != nullptr && !found){
             if(ptr->data == target) {
-                cout << "Value found!" << endl;
+                cout << "Value found!\nAt position: " << endl;
                 cout << ptr->data;
                 found = true;
             }
@@ -93,16 +93,6 @@ class LinkedList{
             head = head->next;
             delete ptr;
         }
-    }
-
-    friend ostream& operator<< (ostream& os, LinkedList& list) {
-        ListNode* ptr = list.head;
-
-        while(ptr != nullptr){
-            os << ptr->data << " ";
-            ptr = ptr->next;
-        }
-        return os;
     }
 };
 
