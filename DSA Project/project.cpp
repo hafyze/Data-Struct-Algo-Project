@@ -96,34 +96,14 @@ class LinkedList{
     }
 };
 
-//  Function to sort  list  //
+//  Function to sort  list  // Harith
 void sortList(vector<int>& number, int size){            
 
-    // Loop entire array
-    for(int i = 0; i < size - 1; i++){                           
-        int min = i;
-
-        // Loops the to find minimum element
-        for(int j = i+1; j < size; j++){                        
-            if(number[j] < number[min]) {
-                min = j;
-            }
-        }
-
-        if(min != i){
-            swap(number[i], number[min]);
-        }
-    }
 }                                                               
 
-//  DISPLAY SORTED LIST FUNCTION  //
+//  DISPLAY SORTED LIST FUNCTION  //Harith
 void displaySortedList(vector<int>& number, int size){    
-
-    cout << "\nSorted Linked list: " << endl;
-    for(int i = 0; i < size; i++){
-        cout << "Number " << i+1 
-             << ": " << number[i] << " " << endl;
-    }                                                           
+                                                        
 }
 
 // FUNCTION TO DISPLAY CURRENT Vector
