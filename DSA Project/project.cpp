@@ -69,13 +69,16 @@ class LinkedList{
 
         while(ptr != nullptr && !found){
             if(ptr->data == target) {
-                cout << "Value found!" << endl;
+                cout << "Value found!\nAt position: " << endl;
                 cout << ptr->data;
                 found = true;
             }
             else {
                 ptr = ptr->next;
             }
+        }
+        if(!found){
+            cout << "Value: " << target << " NOT found in Linked List!" << endl;
         }
         return found;
     }
@@ -91,46 +94,16 @@ class LinkedList{
             delete ptr;
         }
     }
-
-    friend ostream& operator<< (ostream& os, LinkedList& list) {
-        ListNode* ptr = list.head;
-
-        while(ptr != nullptr){
-            os << ptr->data << " ";
-            ptr = ptr->next;
-        }
-        return os;
-    }
 };
 
-//  Function to sort  list  //
+//  Function to sort  list  // Harith
 void sortList(vector<int>& number, int size){            
 
-    // Loop entire array
-    for(int i = 0; i < size - 1; i++){                           
-        int min = i;
-
-        // Loops the to find minimum element
-        for(int j = i+1; j < size; j++){                        
-            if(number[j] < number[min]) {
-                min = j;
-            }
-        }
-
-        if(min != i){
-            swap(number[i], number[min]);
-        }
-    }
 }                                                               
 
-//  DISPLAY SORTED LIST FUNCTION  //
+//  DISPLAY SORTED LIST FUNCTION  //Harith
 void displaySortedList(vector<int>& number, int size){    
-
-    cout << "\nSorted Linked list: " << endl;
-    for(int i = 0; i < size; i++){
-        cout << "Number " << i+1 
-             << ": " << number[i] << " " << endl;
-    }                                                           
+                                                        
 }
 
 // FUNCTION TO DISPLAY CURRENT Vector
@@ -140,14 +113,9 @@ void displayAssignVariable(vector<int>& number, int size){
     }
 }
 
-void printToFile(vector<int>& number, int size){
-    ofstream outfile("text_output.txt");
-
-    if(outfile.is_open()) {
-        for(int i=0; i<size; i++){
-            outfile << "list added " << number[i] << endl;
-        }
-    }
+void searchTarget(int& target){
+    cout << "Enter the number to search: ";
+    cin >> target ; cout << endl;
 }
 
  //  MAIN FUNCTION   //
@@ -185,10 +153,13 @@ int main(){
         listObj.insertFront(number[i]);
     }
 
-    listObj.search(100);
+    int target;
+    searchTarget(target);
+
+    listObj.search(target);
 
     // FUNCTION TO PRINT OUTPUT //
-    printToFile(number, size);
+    //printToFile(number, size);
 
     return 0;
 } 
