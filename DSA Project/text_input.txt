@@ -3,6 +3,7 @@ list add 10
 list add 20
 list add 100
 list add 50
+list add 120
 list min
 list max
 list delete 20
