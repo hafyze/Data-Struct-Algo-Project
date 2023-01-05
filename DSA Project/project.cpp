@@ -1,165 +1,144 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
 
 using namespace std;
 
-const int SIZE = 100;
-
-struct ListNode{
-    int data;
-    ListNode* next;
-
+struct Node {
+    int value;
+    Node* next;
 };
 
 class LinkedList{
     private:
-        ListNode* head;
-
+        int minimumValue;
+        int maximumValue;
+        int deleteValue;
     public:
-    LinkedList(){
-        head = nullptr;
-    }
+        Node* head;
 
-    ~LinkedList(){
-        makeEmpty();
-    }
+        LinkedList() : head(nullptr){}
 
-    //Adds data at front node
-    void insertFront(int element) {
-        ListNode* newNode = new ListNode;
-        newNode->data = element;
-        newNode->next = head;
-        head = newNode;
-    }
+        void add(int value) {
 
-    //Adds data at back node
-    void insertback(int element) {
-        ListNode* newNode = new ListNode;
-        newNode->data = element;
-        newNode->next = nullptr;
-
-        if(head == nullptr){
-            head = newNode;
-            return;
+            // Add a new node with the value to the front of the list.
+            head = new Node{value, head};
         }
 
-        ListNode* temp = head;
-        while(temp->next != nullptr){
-            temp = temp->next;
-        }
+        // void print() {
+        //     // Print the values of all nodes in the list.
+        //     Node* current = head;
+        //     while(current) {
+        //         cout << "list added "<< current->value << endl;
+        //         current = current->next;
+        //     }
+        //     cout << "Minimum value " << minimumValue << endl;
+        //     cout << endl;
+        // }
 
-        temp->next = newNode;
-    }
+        int minFind() {
+            minimumValue = head->value;
 
-    void deleteFront(){
-        if(head == nullptr){
-            return;
-        }
-
-        ListNode* temp = head;
-        head = head->next;
-        delete temp;
-    }
-
-    bool search(int target) {
-        bool found = false;
-        ListNode* ptr = head;
-
-        while(ptr != nullptr && !found){
-            if(ptr->data == target) {
-                cout << "Value found!\nAt position: " << endl;
-                cout << ptr->data;
-                found = true;
+            Node* current = head;
+            while(current){
+                if(current->value < minimumValue){
+                    minimumValue = current->value;
+                }
+                current = current->next;
             }
-            else {
-                ptr = ptr->next;
+            return minimumValue;
+        }
+
+
+        int maxFind() {
+            maximumValue = head->value;
+
+            Node* current = head;
+            while(current){
+                if(current->value > maximumValue){
+                    maximumValue = current->value;
+                }
+                current = current->next;
+            }
+            return maximumValue;
+            }
+
+
+        void writeToFile(){
+            // Open the output file.
+            ofstream fout("text_output.txt");
+
+            // Write the list to the output file.
+            fout << "list created" << endl;
+            while (head) {
+
+                fout << "list added " << head->value << endl;
+                head = head->next;
+            }
+
+            fout << "Minimum value: " << minimumValue << endl;
+            fout << "Maximum value: " << maximumValue << endl;
+            fout << "List deleted : " << deleteValue << endl;
+            fout.close();
+        }
+
+        void deleteNum(int value){
+            // Special case for the head node.
+            if (head->value == value) {
+                Node* new_head = head->next;
+                delete head;
+                head = new_head;
+                return;
+            }
+
+            Node* current = head;
+            while(current->next && current->next->value != value){
+                current = current->next;
+            }
+
+            if(current->next) {
+                Node* temp = current->next;
+                current->next = temp->next;
+                deleteValue = temp->value;
+                delete temp;
             }
         }
-        if(!found){
-            cout << "Value: " << target << " NOT found in Linked List!" << endl;
-        }
-        return found;
-    }
-
-    bool isEmpty(){
-        return head == nullptr;
-    }
-
-    void makeEmpty(){
-        while(head != nullptr){
-            ListNode* ptr = head;
-            head = head->next;
-            delete ptr;
-        }
-    }
 };
 
-//  Function to sort  list  // Harith
-void sortList(vector<int>& number, int size){            
 
-}                                                               
 
-//  DISPLAY SORTED LIST FUNCTION  //Harith
-void displaySortedList(vector<int>& number, int size){    
-                                                        
-}
+int main() {
+    LinkedList list;
 
-// FUNCTION TO DISPLAY CURRENT Vector
-void displayAssignVariable(vector<int>& number, int size){
-    for(int i=0; i<size; i++){                                  
-        cout << number[i] << endl;
-    }
-}
+    // Open input file.
+    ifstream file("text_input.txt");
 
-void searchTarget(int& target){
-    cout << "Enter the number to search: ";
-    cin >> target ; cout << endl;
-}
+    // Read operation from  input file.
+    string operation;
 
- //  MAIN FUNCTION   //
-int main(){                                                    
+    int value;
+    while (file >> operation) {
+        
+        if (operation == "add") {
+        file >> value;
+        list.add(value);
+        } 
+        else if(operation == "min") {
+            list.minFind();
 
-    vector<int> number;
-    // Open and reads the file
-    ifstream input_file("text_input.txt");                      
-
-    int i;
-    // Adds value until no value is available to read
-    while (input_file >> i) {                       
-
-        // Value "i" added at vector end with push_back function
-        number.push_back(i);                                    
+        }
+        else if(operation == "max") {
+            list.maxFind();
+        }
+        else if(operation == "delete"){
+            file >> value;
+            list.deleteNum(value);
+        }
     }
 
-    // Storing the size of array tu variable
-    int size = number.size();                                   
-    displayAssignVariable(number, size);
-
-    // Closes the file
-    input_file.close();                                         
-
-    // Call function to sort list
-    sortList(number, size);                    
-    // Call function to display sorted list           
-    displaySortedList(number, size);                     
-    
-
-    // LINKED LIST FEATURE STARTS //
-    LinkedList listObj;
-
-    for(int i=0; i<size; i++){
-        listObj.insertFront(number[i]);
-    }
-
-    int target;
-    searchTarget(target);
-
-    listObj.search(target);
-
-    // FUNCTION TO PRINT OUTPUT //
-    //printToFile(number, size);
+    //list.print();
+    list.writeToFile();
+    file.close();
 
     return 0;
-} 
+}

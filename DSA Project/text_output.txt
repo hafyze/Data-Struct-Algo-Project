@@ -1,4 +1,7 @@
-list added 10
-list added 20
+list created
 list added 50
 list added 100
+list added 20
+Minimum value: 10
+Maximum value: 100
+List deleted : 10
