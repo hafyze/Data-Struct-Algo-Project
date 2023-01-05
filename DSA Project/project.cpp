@@ -80,6 +80,7 @@ class LinkedList{
             fout << "Minimum value: " << minimumValue << endl;
             fout << "Maximum value: " << maximumValue << endl;
             fout << "List deleted : " << deleteValue << endl;
+            fout << "List deleted : " << foundTarget << endl;
             fout.close();
         }
 
@@ -105,11 +106,17 @@ class LinkedList{
             }
         }
 
-        int search(int target){
+        bool search(int target){
+            bool found = false;
             Node* current = head;
             while(current) {
                 if(current->value == target){
                     cout << "Target found: " << target;
+                    foundTarget = target;
+                    bool true;
+                }
+                else{
+                    cout << "Target NOT FOUND!" << endl;
                 }
             }
         }
