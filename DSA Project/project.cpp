@@ -66,21 +66,28 @@ class LinkedList{
 
 
         void writeToFile(){
+            Node* current = head;
             // Open the output file.
             ofstream fout("text_output.txt");
 
             // Write the list to the output file.
             fout << "list created" << endl;
-            while (head) {
+            while (current) {
 
-                fout << "list added " << head->value << endl;
-                head = head->next;
+                fout << "list added " << current->value << endl;
+                current = current->next;
             }
 
             fout << "Minimum value: " << minimumValue << endl;
             fout << "Maximum value: " << maximumValue << endl;
             fout << "List deleted : " << deleteValue << endl;
-            fout << "Target : " << foundTarget << endl;
+
+            if(!found){
+                fout << "Not found" << endl;
+            }else
+            
+            fout << "Search found : " << foundTarget << endl;
+            print();
             fout.close();
         }
 
@@ -106,18 +113,28 @@ class LinkedList{
             }
         }
 
-        bool search(int target){
-            bool found = false;
+        bool found;
+        void search(int target){
+            found = false;
             Node* current = head;
             while(current) {
                 if(current->value == target){
-                    cout << "Target found: " << target;
+                    //cout << "Target found: " << target;
                     foundTarget = target;
                     found = true;
                 }
-                else{
-                    cout << "Target NOT FOUND!" << endl;
-                }
+                current = current->next;
+            }
+        }
+
+        void print(){
+            Node* current = head;
+            
+            ofstream fout("text_output.txt", ios::app);
+            while (current != nullptr) {
+
+                fout << current->value << " ";
+                current = current->next;
             }
         }
 };
@@ -155,7 +172,6 @@ int main() {
         }
     }
 
-    //list.print();
     list.writeToFile();
     file.close();
 
