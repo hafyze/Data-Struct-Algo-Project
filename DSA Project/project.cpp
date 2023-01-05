@@ -14,6 +14,7 @@ class LinkedList{
         int minimumValue;
         int maximumValue;
         int deleteValue;
+        int foundTarget;
     public:
         Node* head;
 
@@ -103,9 +104,16 @@ class LinkedList{
                 delete temp;
             }
         }
+
+        int search(int target){
+            Node* current = head;
+            while(current) {
+                if(current->value == target){
+                    cout << "Target found: " << target;
+                }
+            }
+        }
 };
-
-
 
 int main() {
     LinkedList list;
@@ -133,6 +141,10 @@ int main() {
         else if(operation == "delete"){
             file >> value;
             list.deleteNum(value);
+        }
+        else if(operation == "search"){
+            file >> value;
+            list.search(value);
         }
     }
 
