@@ -80,7 +80,7 @@ class LinkedList{
             fout << "Minimum value: " << minimumValue << endl;
             fout << "Maximum value: " << maximumValue << endl;
             fout << "List deleted : " << deleteValue << endl;
-            fout << "List deleted : " << foundTarget << endl;
+            fout << "Target : " << foundTarget << endl;
             fout.close();
         }
 
@@ -113,7 +113,7 @@ class LinkedList{
                 if(current->value == target){
                     cout << "Target found: " << target;
                     foundTarget = target;
-                    bool true;
+                    found = true;
                 }
                 else{
                     cout << "Target NOT FOUND!" << endl;
