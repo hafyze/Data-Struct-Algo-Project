@@ -155,6 +155,7 @@ class LinkedStack{
         LinkedStack(){
             top = nullptr;
         }
+        
         //PUSH THE NUMBER TO THE TOP OF STACK
         void push(int num){
             top = new Node{num, top};
@@ -225,23 +226,25 @@ class LinkedStack{
 int main() {
     LinkedList list;
     LinkedStack stack;
-    // Open input file.
+    // OPEN INPUT FILE
         ifstream file("text_input.txt");
 
-        // Read operation from  input file.
         string line;
 
 
-        
+        // READ AND STORE INPUT TO LINE
         while (getline(file,line)) {
             
+            // STRING STREAM SEPERATES THE LINE, WORD BY WORD
             stringstream seperate(line);
             string operation;
             string subOperation;
+            //THE FIRST WORD IS SAVED IN OPERATION AS THE 1ST PROCESS
+            //THE SECOND WORD IS SAVED IN SUBOPERATION AS 2ND PROCESS
             seperate >> operation >> subOperation;
-
+            
+            //PROCESS STARTS
             if(operation == "list"){
-                
                 
                 if (subOperation == "add") {
                     int value;
