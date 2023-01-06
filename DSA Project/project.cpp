@@ -228,8 +228,11 @@ class LinkedStack{
 
 class BinarySearchTree {
     private:
-        int deleteValue;
+        Node* root;
+        int deletedValue;
     public:
+        BinarySearchTree(){root=nullptr;}
+
 
         void insert(Node*& root, int num) {
             if (root == nullptr) {
@@ -243,67 +246,63 @@ class BinarySearchTree {
                 insert(root->right, num);
             }
         }
-        
 
-        void deleteNum(Node*& root, int num) {
+
+        int deleteNum(Node*& root, int num) {
+            int deleteValue;
             if(root == nullptr){
-                return;
+                return -1;
             }
 
             if(num < root->data){
-                deleteNum(root->left, num);
+                return deleteNum(root->left, num);
             }
             else if(num > root->data){
-                deleteNum(root->right, num);
+                return deleteNum(root->right, num);
+            }
+            else if(root->left == nullptr){
+                deleteValue = root->data;
+                Node* temp = root;
+                root = root->right;
+                deleteValue = temp->data;
+                delete temp;
+                return deleteValue;
+            }
+            else if(root->right == nullptr){
+                deleteValue = root->data;
+                Node* temp = root;
+                root = root->left;
+                deleteValue = temp->data;
+                delete temp;
+                return deleteValue;
             }
             else{
-                if(root->left == nullptr && root->right == nullptr){
-                    deleteValue = root->data;
-                    delete root;
-                    root = nullptr;
-                }
-                else if(root->left == nullptr){
-                    Node* temp = root;
-                    root = root->right;
-                    deleteValue = temp->data;
-                    delete temp;
-                }
-                else if(root->right == nullptr){
-                    Node* temp = root;
-                    root = root->left;
-                    deleteValue = temp->data;
-                    delete temp;
-                }
-                else{
-                    Node* minNode = root->right;
+                Node* minNode = root->right;
 
-                    while(minNode->left != nullptr){
-                        minNode = minNode->left;
-                        root->data = minNode->data;
-                        deleteNum(root->right, minNode->data);
-                    }
+                while(minNode->left != nullptr){
+                    minNode = minNode->left;
+                    root->data = minNode->data;
+                    return deleteNum(root->right, minNode->data);
                 }
             }
+            return deleteValue;
         }
 
         void inorder(Node* root) {
             if(root == nullptr){
                 return;
             }
-
-            inorder(root->left);
-            cout << root->data << " ";
-            inorder(root->right);
+                inorder(root->left);
+                cout << root->data << " ";
+                inorder(root->right);
         }
 
-        void writeToFile(){
-            Node* root;
-            // Open the output file.
-            ofstream fout("text_output.txt", ios::app);
-        
+        void writeToFile(int delNum){
             // Write the list to the output file.
+            ofstream fout("text_output.txt", ios::app);
             fout << "\nbst constructed" << endl;
             inorder(root);
+            fout << "bst deleted " << delNum;
             fout.close();
         }
 };
@@ -317,8 +316,9 @@ int main() {
     root = nullptr;
     // OPEN INPUT FILE
         ifstream file("text_input.txt");
-
+        ofstream fout("output_text.txt", ios::app);
         string line;
+        int deletedValue;
 
 
         // READ AND STORE INPUT TO LINE
@@ -369,7 +369,7 @@ int main() {
                     stack.deleteNumber(value);
                 }
             }
-            ofstream fout("text_output.txt", ios::app);
+            
             if(operation == "bst"){
                 if(subOperation == "add"){
                     int value;
@@ -378,19 +378,18 @@ int main() {
                 }else if(subOperation == "delete"){
                     int value;
                     seperate >> value;
-                    bst.deleteNum(root, value);
+                    deletedValue = bst.deleteNum(root, value);
                 }
                 else if(subOperation == "inorder"){
                     bst.inorder(root);
                 }
             }
-            fout.close();
         }
 
     file.close();
     list.writeToFile();
     stack.writeToFile();
-    bst.writeToFile();
+    bst.writeToFile(deletedValue);
     
     return 0;
 }
