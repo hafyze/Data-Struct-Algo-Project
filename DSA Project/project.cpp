@@ -152,32 +152,37 @@ class LinkedStack{
             top = new Node{num, top};
         }
 
-        int minFind() {
-            minimumValue = top->data;
-
-            Node* current = top;
-            while(current){
-                if(current->data < minimumValue){
-                    minimumValue = current->data;
-                }
-                current = current->next;
+        int pop(){
+            if(top == nullptr){
+                return 0;
             }
-            return minimumValue;
+
+            int target = top->data;
+            Node* temp = top;
+            top = top->next;
+            delete temp;
+            return target;
         }
 
-
-        int maxFind() {
-            maximumValue = top->data;
-
+        void deleteNumber(int target){
             Node* current = top;
-            while(current){
-                if(current->data > maximumValue){
-                    maximumValue = current->data;
+            Node* previous = nullptr;
+            while (current != nullptr) {
+                if (current->data == target) {
+                    if (previous == nullptr) {
+                        top = current->next;
+                        deleteValue = target;
+                    } else {
+                        previous->next = current->next;
+                        
+                    }
+                    delete current;
+                    break;
                 }
+                previous = current;
                 current = current->next;
-            }
-            return maximumValue;
-            }
+                }
+         }
 
         void writeToFile(){
             Node* temp = top;
@@ -190,30 +195,16 @@ class LinkedStack{
                 fout << "stack added " << temp->data << endl;
                 temp = temp->next;
             }
-            fout << "Minimum value: " << minimumValue << endl;
-            fout << "Maximum value: " << maximumValue << endl;
             fout << "stack deleted : " << deleteValue << endl;
-            print();
-            write(fout);
+            print(fout);
             fout.close();
         }
 
-
-        void print() {
-            // Print the values of all nodes in the stack.
-            Node* current = top;
-            while (current) {
-                std::cout << current->data << " ";
-                current = current->next;
-            }
-            std::cout << std::endl;
-        }
-
-        void write(std::ofstream& out) {
+        void print(std::ofstream& out) {
             // Write the values of all nodes in the stack to the output file.
             Node* current = top;
             while (current) {
-                out << current->data << std::endl;
+                out << current->data << " ";
                 current = current->next;
             }
         }
@@ -232,15 +223,17 @@ int main() {
 
         
         while (getline(file,line)) {
-            string operation;
+            
             stringstream seperate(line);
-            int value = 0;
+            string operation;
+            string subOperation;
+            seperate >> operation >> subOperation;
 
-            seperate >> operation;
             if(operation == "list"){
-                string subOperation;
-                seperate >> subOperation;
+                
+                
                 if (subOperation == "add") {
+                    int value;
                     seperate >> value;
                     list.add(value);
                 } 
@@ -251,27 +244,27 @@ int main() {
                     list.maxFind();
                 }
                 else if(subOperation == "delete"){
+                    int value;
                     seperate >> value;
                     list.deletedValueFunc(value);
                 }
                 else if(subOperation == "search"){
+                    int value;
                     seperate >> value;
                     list.search(value);
                 }
-            }else if(operation == "stack"){
-                string subOperation;
-                seperate >> subOperation;
+            }
+            
+            if(operation == "stack"){
                 if (subOperation == "add") {
+                    int value;
                     seperate >> value;
                     stack.push(value);
-                } 
-                else if(subOperation == "min") {
-                    stack.minFind();
-                    }
-                else if(subOperation == "max") {
-                    stack.maxFind();
+                }else if(subOperation == "delete"){
+                    int value;
+                    seperate >> value;
+                    stack.deleteNumber(value);
                 }
-                
             }
         }
 
