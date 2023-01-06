@@ -8,10 +8,10 @@ list max
 list delete 50
 list search 20
 list print
-SortedLinkedList sortedList
-sortedList add 10
-sortedList add 20
-sortedList add 100
-sortedList add 50
-sortedList delete 20
-sortedList print
+LinkedStack stack
+stack add 10
+stack add 20
+stack add 100
+stack add 50
+stack delete 100
+stack print
