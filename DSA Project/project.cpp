@@ -143,6 +143,7 @@ class LinkedList{
         }
 };
 
+// LINKED STACK CLASS
 class LinkedStack{
     private:
         int minimumValue;
@@ -154,11 +155,12 @@ class LinkedStack{
         LinkedStack(){
             top = nullptr;
         }
-
+        //PUSH THE NUMBER TO THE TOP OF STACK
         void push(int num){
             top = new Node{num, top};
         }
 
+        //POPS THE TOP OF STACK
         int pop(){
             if(top == nullptr){
                 return 0;
@@ -171,6 +173,7 @@ class LinkedStack{
             return target;
         }
 
+        //DELETES OR POP THE TARGETED NUMBER FROM FILE INPUT
         void deleteNumber(int target){
             Node* current = top;
             Node* previous = nullptr;
@@ -191,6 +194,7 @@ class LinkedStack{
                 }
          }
 
+        //APPENDS THE PROCESS TO OUTPUT.TXT FILE
         void writeToFile(){
             Node* temp = top;
             // Open the output file.
@@ -207,7 +211,7 @@ class LinkedStack{
             fout.close();
         }
 
-        void print(std::ofstream& out) {
+        void print(ofstream& out) {
             // Write the values of all nodes in the stack to the output file.
             Node* current = top;
             while (current) {
