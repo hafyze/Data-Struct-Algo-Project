@@ -60,6 +60,7 @@ class Stack{
 };
 
 int main(){
+<<<<<<< Updated upstream
   Stack stk;
 
   vector<int> number;
@@ -79,4 +80,7 @@ int main(){
     }
 
     
+=======
+  
+>>>>>>> Stashed changes
 }

@@ -18,24 +18,14 @@ class LinkedList{
     public:
         Node* head;
 
-        LinkedList() : head(nullptr){}
-
-        void add(int value) {
-
-            // Add a new node with the value to the front of the list.
-            head = new Node{value, head};
+        LinkedList(){
+            head = nullptr;
         }
 
-        // void print() {
-        //     // Print the values of all nodes in the list.
-        //     Node* current = head;
-        //     while(current) {
-        //         cout << "list added "<< current->value << endl;
-        //         current = current->next;
-        //     }
-        //     cout << "Minimum value " << minimumValue << endl;
-        //     cout << endl;
-        // }
+        void add(int value) {
+            // Add a new node with the value to the front of the list.
+            head = new Node{value, head};             
+        }
 
         int minFind() {
             minimumValue = head->value;
@@ -64,6 +54,38 @@ class LinkedList{
             return maximumValue;
             }
 
+        void readFromFile(){
+            // Open input file.
+            ifstream file("text_input.txt");
+
+            // Read operation from  input file.
+            string operation;
+
+            int value;
+            while (file >> operation) {
+                
+                if (operation == "listAdd") {
+                    file >> value;
+                    add(value);
+                } 
+                else if(operation == "min") {
+                    minFind();
+
+                }
+                else if(operation == "max") {
+                    maxFind();
+                }
+                else if(operation == "delete"){
+                    file >> value;
+                    deleteNum(value);
+                }
+                else if(operation == "search"){
+                    file >> value;
+                    search(value);
+                }
+            }
+            file.close();
+        }
 
         void writeToFile(){
             Node* current = head;
@@ -73,11 +95,9 @@ class LinkedList{
             // Write the list to the output file.
             fout << "list created" << endl;
             while (current) {
-
                 fout << "list added " << current->value << endl;
                 current = current->next;
             }
-
             fout << "Minimum value: " << minimumValue << endl;
             fout << "Maximum value: " << maximumValue << endl;
             fout << "List deleted : " << deleteValue << endl;
@@ -142,38 +162,10 @@ class LinkedList{
 int main() {
     LinkedList list;
 
-    // Open input file.
-    ifstream file("text_input.txt");
-
-    // Read operation from  input file.
-    string operation;
-
-    int value;
-    while (file >> operation) {
-        
-        if (operation == "add") {
-        file >> value;
-        list.add(value);
-        } 
-        else if(operation == "min") {
-            list.minFind();
-
-        }
-        else if(operation == "max") {
-            list.maxFind();
-        }
-        else if(operation == "delete"){
-            file >> value;
-            list.deleteNum(value);
-        }
-        else if(operation == "search"){
-            file >> value;
-            list.search(value);
-        }
-    }
+    list.readFromFile();
 
     list.writeToFile();
-    file.close();
+    
 
     return 0;
 }

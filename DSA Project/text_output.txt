@@ -1,10 +1,9 @@
 list created
-list added 120
-list added 50
 list added 100
+list added 20
 list added 10
 Minimum value: 10
-Maximum value: 120
-List deleted : 20
-Not found
-120 50 100 10 
+Maximum value: 100
+List deleted : 81
+Search found : 20
+100 20 10 
