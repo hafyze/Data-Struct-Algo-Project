@@ -13,5 +13,5 @@ stack add 10
 stack add 20
 stack add 100
 stack add 50
-stack delete 100
+stack delete 20
 stack print
