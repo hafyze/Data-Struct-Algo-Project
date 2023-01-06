@@ -8,6 +8,14 @@ List deleted : 50
 Search found : 20
 100 20 10 
 stack created
-Minimum value: 24
-Maximum value: 0
-stack deleted : 0
+stack added 50
+stack added 100
+stack added 20
+stack added 10
+Minimum value: -1521608288
+Maximum value: 32759
+stack deleted : 24
+50
+100
+20
+10

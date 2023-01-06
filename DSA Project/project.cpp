@@ -4,12 +4,10 @@
 #include <string>
 
 using namespace std;
-
 struct Node {
-    int data;
-    Node* next;
-};
-
+            int data;
+            Node* next;
+        };
 class LinkedList{
     private:
         int minimumValue;
@@ -140,54 +138,18 @@ class LinkedList{
 
 class LinkedStack{
     private:
-        Node* top;
         int minimumValue;
         int maximumValue;
         int deleteValue;
         int foundTarget;
     public:
+        Node* top;
         LinkedStack(){
             top = nullptr;
         }
 
-        bool empty(){
-            if(top == nullptr){
-                return true;
-            }else {
-                return false;
-            }
-        }
-
         void push(int num){
-            Node* temp;
-            temp = new Node;
-            temp->data = num;
-
-            if(top == nullptr){
-                top = temp;
-                temp->next = nullptr;
-            }
-            else {
-                temp->next = top;
-                top = temp;
-            }
-        }
-
-        int pop(){
-            int num;
-            Node* temp;
-
-            if(!empty()){
-                num = top->data;
-                temp = top;
-                top = top->next;
-                delete temp;
-                return num;
-            } 
-            else{
-                cout << "Stack is EMPTY!";
-                return -1;
-            }
+            top = new Node{num, top};
         }
 
         int minFind() {
@@ -224,8 +186,7 @@ class LinkedStack{
 
             // Write the list to the output file.
             fout << "\nstack created" << endl;
-            while (temp != nullptr) {
-                cout << temp->data << " ";
+            while (temp) {
                 fout << "stack added " << temp->data << endl;
                 temp = temp->next;
             }
@@ -233,20 +194,30 @@ class LinkedStack{
             fout << "Maximum value: " << maximumValue << endl;
             fout << "stack deleted : " << deleteValue << endl;
             print();
+            write(fout);
             fout.close();
         }
 
 
-        void print(){
+        void print() {
+            // Print the values of all nodes in the stack.
             Node* current = top;
-            
-            ofstream fout("text_output.txt", ios::app);
-            while (current != nullptr) {
+            while (current) {
+                std::cout << current->data << " ";
+                current = current->next;
+            }
+            std::cout << std::endl;
+        }
 
-                fout << current->data << " ";
+        void write(std::ofstream& out) {
+            // Write the values of all nodes in the stack to the output file.
+            Node* current = top;
+            while (current) {
+                out << current->data << std::endl;
                 current = current->next;
             }
         }
+
 };
 
 int main() {
@@ -259,15 +230,15 @@ int main() {
         string line;
 
 
-        int value = 0;
+        
         while (getline(file,line)) {
             string operation;
-            string subOperation;
-
             stringstream seperate(line);
+            int value = 0;
 
             seperate >> operation;
             if(operation == "list"){
+                string subOperation;
                 seperate >> subOperation;
                 if (subOperation == "add") {
                     seperate >> value;
@@ -281,16 +252,14 @@ int main() {
                 }
                 else if(subOperation == "delete"){
                     seperate >> value;
-                    cout << value;
                     list.deletedValueFunc(value);
                 }
                 else if(subOperation == "search"){
                     seperate >> value;
                     list.search(value);
                 }
-            }
-            seperate >> operation;
-            if(operation == "sortedList"){
+            }else if(operation == "sortedList"){
+                string subOperation;
                 seperate >> subOperation;
                 if (subOperation == "add") {
                     seperate >> value;
@@ -302,17 +271,14 @@ int main() {
                 else if(subOperation == "max") {
                     stack.maxFind();
                 }
-                else if(subOperation == "delete"){
-                    seperate >> value;
-                    cout << value;
-                    stack.pop();
-                }
+                
             }
         }
 
     file.close();
     list.writeToFile();
     stack.writeToFile();
+    stack.print();
     
     return 0;
 }
