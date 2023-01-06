@@ -10,6 +10,7 @@ struct Node {
     Node* next;
     Node* left;
     Node* right;
+
 };
 
 //LINKED LIST CLASS
@@ -74,7 +75,6 @@ class LinkedList{
             // Write the list to the output file.
             fout << "list created" << endl;
             while (temp != nullptr) {
-                cout << temp->data << " ";
                 fout << "list added " << temp->data << endl;
                 temp = temp->next;
             }
@@ -126,7 +126,6 @@ class LinkedList{
             Node* current = head;
             while(current) {
                 if(current->data == target){
-                    //cout << "Target found: " << target;
                     foundTarget = target;
                     found = true;
                 }
@@ -229,32 +228,83 @@ class LinkedStack{
 
 class BinarySearchTree {
     private:
-         Node* root;
-
+        int deleteValue;
     public:
-        BinarySearchTree(){
-            root = nullptr;
+
+        void insert(Node*& root, int num) {
+            if (root == nullptr) {
+                root = new Node{num, nullptr, nullptr};
+                return;
+            }
+            if (num < root->data) {
+                insert(root->left, num);
+            } 
+            else{
+                insert(root->right, num);
+            }
         }
+        
 
-        void insert(int num) {
-
-        }
-
-        void deleteNode(int num) {
-
-        }
-
-        void inorder() {
-            // Open output file
-            ofstream output("output.txt");
-            if (!output) {
-            cerr << "Error opening output file" << endl;
-            return;
+        void deleteNum(Node*& root, int num) {
+            if(root == nullptr){
+                return;
             }
 
+            if(num < root->data){
+                deleteNum(root->left, num);
+            }
+            else if(num > root->data){
+                deleteNum(root->right, num);
+            }
+            else{
+                if(root->left == nullptr && root->right == nullptr){
+                    deleteValue = root->data;
+                    delete root;
+                    root = nullptr;
+                }
+                else if(root->left == nullptr){
+                    Node* temp = root;
+                    root = root->right;
+                    deleteValue = temp->data;
+                    delete temp;
+                }
+                else if(root->right == nullptr){
+                    Node* temp = root;
+                    root = root->left;
+                    deleteValue = temp->data;
+                    delete temp;
+                }
+                else{
+                    Node* minNode = root->right;
 
-            // Close output file
-            output.close();
+                    while(minNode->left != nullptr){
+                        minNode = minNode->left;
+                        root->data = minNode->data;
+                        deleteNum(root->right, minNode->data);
+                    }
+                }
+            }
+        }
+
+        void inorder(Node* root) {
+            if(root == nullptr){
+                return;
+            }
+
+            inorder(root->left);
+            cout << root->data << " ";
+            inorder(root->right);
+        }
+
+        void writeToFile(){
+            Node* root;
+            // Open the output file.
+            ofstream fout("text_output.txt", ios::app);
+        
+            // Write the list to the output file.
+            fout << "\nbst constructed" << endl;
+            inorder(root);
+            fout.close();
         }
 };
 
@@ -262,6 +312,9 @@ int main() {
     LinkedList list;
     LinkedStack stack;
     BinarySearchTree bst;
+
+    Node* root;
+    root = nullptr;
     // OPEN INPUT FILE
         ifstream file("text_input.txt");
 
@@ -316,24 +369,28 @@ int main() {
                     stack.deleteNumber(value);
                 }
             }
-
+            ofstream fout("text_output.txt", ios::app);
             if(operation == "bst"){
                 if(subOperation == "add"){
                     int value;
                     seperate >> value;
-                    
+                    bst.insert(root, value);
                 }else if(subOperation == "delete"){
                     int value;
                     seperate >> value;
-                }else if(subOperation == "inorder"){
-
+                    bst.deleteNum(root, value);
+                }
+                else if(subOperation == "inorder"){
+                    bst.inorder(root);
                 }
             }
+            fout.close();
         }
 
     file.close();
     list.writeToFile();
     stack.writeToFile();
+    bst.writeToFile();
     
     return 0;
 }

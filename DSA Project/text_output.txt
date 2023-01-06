@@ -13,3 +13,4 @@ stack added 20
 stack added 10
 stack deleted : 50
 100 20 10 
+bst constructed
