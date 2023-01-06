@@ -60,9 +60,7 @@ class Stack{
 };
 
 int main(){
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
   Stack stk;
 
   vector<int> number;
@@ -81,14 +79,4 @@ int main(){
       stk.push(number[i]);
     }
 
-    
-=======
-  
->>>>>>> Stashed changes
-=======
-  
->>>>>>> Stashed changes
-=======
-  
->>>>>>> Stashed changes
 }
