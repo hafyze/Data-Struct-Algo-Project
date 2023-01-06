@@ -228,34 +228,34 @@ class LinkedStack{
 };
 
 class BinarySearchTree {
- private:
-  Node* root;
+    private:
+         Node* root;
 
- public:
-  BinarySearchTree(){
+    public:
+        BinarySearchTree(){
+            root = nullptr;
+        }
 
-  }
+        void insert(int num) {
 
-  void add(int data) {
+        }
 
-  }
+        void deleteNode(int num) {
 
-  void deleteNode(int data) {
+        }
 
-  }
-
-  void inorder() {
-    // Open output file
-    ofstream output("output.txt");
-    if (!output) {
-      cerr << "Error opening output file" << endl;
-      return;
-    }
+        void inorder() {
+            // Open output file
+            ofstream output("output.txt");
+            if (!output) {
+            cerr << "Error opening output file" << endl;
+            return;
+            }
 
 
-    // Close output file
-    output.close();
-  }
+            // Close output file
+            output.close();
+        }
 };
 
 int main() {
