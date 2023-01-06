@@ -8,6 +8,7 @@ struct Node {
             int data;
             Node* next;
         };
+//LINKED LIST CLASS
 class LinkedList{
     private:
         int minimumValue;
@@ -17,19 +18,22 @@ class LinkedList{
     public:
         Node* head;
 
-        void deletedValueFunc(int data){
-            deleteValue = deleteNum(data);
-        }
-
+        //CONSTRUCTOR
         LinkedList(){
             head = nullptr;
         }
 
+        //FUNCTION TO STORE DELETED NUM IN A VAR
+        void deletedValueFunc(int data){
+            deleteValue = deleteNum(data);
+        }
+
+        //ADDS THE DATA TO THE FRONT OF LIST
         void add(int data) {
-            // Add a new node with the value to the front of the list.
             head = new Node{data, head};
         }
 
+        //FINDS THE MIN NUMBER IN THE LINKED LIST
         int minFind() {
             minimumValue = head->data;
 
@@ -43,7 +47,7 @@ class LinkedList{
             return minimumValue;
         }
 
-
+        //FINDS THE MAX NUMBER IN THE LINKED LIST
         int maxFind() {
             maximumValue = head->data;
 
@@ -57,6 +61,7 @@ class LinkedList{
             return maximumValue;
             }
 
+        //WRITES THE PROCESS TO OUTPUT.TXT FILE
         void writeToFile(){
             Node* temp = head;
             // Open the output file.
@@ -82,8 +87,9 @@ class LinkedList{
             fout.close();
         }
 
+        //DELETE THE TARGET NUMBER
         int deleteNum(int value){
-            // Special case for the head node.
+
             if (head->data == value) {
                 Node* new_head = head->next;
                 int deleted_value = head->data;
@@ -92,13 +98,12 @@ class LinkedList{
                 return deleted_value;
             }
 
-                // Find the node before the one we want to delete.
             Node* temp = head;
             while (temp->next && temp->next->data != value) {
                 temp = temp->next;
             }
 
-            // Idelete if node found
+            // DELETE IF NODE IS FOUND
             if (temp->next) {
                 Node* temp = temp->next;
                 int deleted_value = temp->data;
@@ -110,6 +115,7 @@ class LinkedList{
             }
         }
 
+        //SEARCH THE NUMBER THAT WANT TO BE SEARCH
         bool found;
         void search(int target){
             found = false;
@@ -124,6 +130,7 @@ class LinkedList{
             }
         }
 
+        //PRINTS THE CURRENT LINKED LIST AFTER PREVIOUS PROCESS
         void print(){
             Node* current = head;
             
