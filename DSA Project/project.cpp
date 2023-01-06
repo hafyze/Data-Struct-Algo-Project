@@ -230,18 +230,6 @@ class BinarySearchTree {
  private:
   Node* root;
 
-  void addHelper(int data, Node*& node) {
-    if (!node) {
-      node = new Node(data);
-      return;
-    }
-
-    if (data < node->data) {
-      addHelper(data, node->left);
-    } else {
-      addHelper(data, node->right);
-    }
-  }
 
   Node* findMinNode(Node* node) {
     while (node->left) {
@@ -389,7 +377,7 @@ int main() {
                     int value;
                     seperate >> value;
                 }else if(subOperation == "inorder"){
-                    
+
                 }
             }
         }
