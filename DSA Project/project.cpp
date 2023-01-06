@@ -187,7 +187,7 @@ class LinkedStack{
         int pop() {
             // Pop the top element from the stack.
             if (!top) {
-            return -1;
+                return -1;
             }
             int value = top->data;
             Node* new_top = top->next;
@@ -196,14 +196,15 @@ class LinkedStack{
             return value;
         }
 
-        void deleteNumber(int num){
-            while(top){
+        void delete_element(int value) {
+            // Delete the given element from the stack.
+            while (top) {
                 int popped_value = pop();
-                if(popped_value == num){
-                    deleteValue = popped_value;
-                    return;
+                if (popped_value == value) {
+                    deleteValue = value;
+                return;
                 }
-                push(deleteValue);
+                push(popped_value);
             }
         }
 };
@@ -216,22 +217,26 @@ int main() {
 
     // Read operation from  input file.
     string line;
-
+    cout << line;
         
     while (getline(file,line)) {
-        string operation;
         stringstream seperate(line);
-        int value = 0;
+        string operation; 
         seperate >> operation;
+        int value;
+        
         if(operation == "list"){
             string subOperation;
             seperate >> subOperation;
+            
             if (subOperation == "add") {
                 seperate >> value;
                 list.add(value);
-            }else if(subOperation == "min") {
+            }
+            else if(subOperation == "min") {
                     list.minFind();
-            }else if(subOperation == "max") {
+            }
+            else if(subOperation == "max") {
                 list.maxFind();
             }
             else if(subOperation == "delete"){
@@ -248,13 +253,14 @@ int main() {
             if (subOperation == "add") {
                 seperate >> value;
                 stack.push(value);
-            }else if(subOperation == "delete") {
+            }
+            else if(subOperation == "delete") {
                 seperate >> value;
-                stack.deleteNumber(value);
+                stack.delete_element(value);
             }
         }
     }
-
+    
     file.close();
     list.writeToFile();
     stack.writeToFile();
