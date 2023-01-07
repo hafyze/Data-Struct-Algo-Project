@@ -3,10 +3,10 @@
 // Course: DCP5301 DSA      
 // Tutorial section: TL4L
 // Trimester: 2210
-// Member_1: ID | NAME | EMAIL | PHONE
-// Member_2: 1211201542 | Mohamad Zulhafiz | 1211201542@student.mmu.edu.my | 013-4336103
-// Member_3: ID | NAME | EMAIL | PHONE
-// Member_4: ID | NAME | EMAIL | PHONE     
+// Member_1: 1211201780 | Harith Iskandar Bin Mat Radzuan  | 1211201780@studen.mmu.edu.my  | 019-3986273
+// Member_2: 1211201542 | Mohamad Zulhafiz Bin Mohd Jaafar | 1211201542@student.mmu.edu.my | 013-4336103
+// Member_3: 1211203380 | Muhammad AFiq Bin Muhammad Nizam | 1211203380@student.mmu.edu.my | 012-6249316
+// Member_4: 1211200183 | Muhammad Yazid Bin Shariful Azhar| 1211200183@student.mmu.edu.my | 019-4716930     
 // *********************************************************
 // Task Distribution
 // Member_1:  
