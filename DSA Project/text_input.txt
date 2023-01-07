@@ -22,3 +22,10 @@ bst add 20
 bst add 10
 bst delete 30
 bst inorder
+SortedLinkedList sortedList
+sortedList add 10
+sortedList add 20
+sortedList add 100
+sortedList add 50
+sortedList delete 20
+sortedList print

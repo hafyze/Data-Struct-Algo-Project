@@ -119,6 +119,23 @@ class LinkedList{
             }
         }
 
+        //  DISPLAY SORTED LIST FUNCTION  //Harith
+        void displaySortedList(int number, int size){
+            cout<<"Sorted Linked List" << endl;
+
+            for (int i=0; i<size; i++){
+                cout<<" "<< number;
+            }
+            cout << "\n";
+        }
+
+        // FUNCTION TO DISPLAY CURRENT Vector
+        void displayAssignVariable(int number, int size){
+            for(int i=0; i<size; i++){
+                cout << number << endl;
+            }
+        }
+
         //SEARCH THE NUMBER THAT WANT TO BE SEARCH
         bool found;
         void search(int target){
@@ -293,17 +310,108 @@ class BinarySearchTree {
                 return;
             }
                 inorder(root->left);
-                cout << root->data << " ";
+                //cout << root->data << " ";
                 inorder(root->right);
         }
 
         void writeToFile(int delNum){
+            Node* temp;
+            temp = root;
             // Write the list to the output file.
             ofstream fout("text_output.txt", ios::app);
             fout << "\nbst constructed" << endl;
-            inorder(root);
+            while(temp != nullptr){
+                inorder(temp->left);
+                fout << temp->data << " ";
+                inorder(temp->right);
+            }
             fout << "bst deleted " << delNum;
             fout.close();
+        }
+};
+
+class SortedLinkedList{
+    private:
+        Node* head;
+        int deletedValue;
+    public:
+        SortedLinkedList(){
+            head = nullptr;
+        }
+
+        void deletedValueFunc(int num){
+            deletedValue = deleteNum(num);
+        }
+
+        void insert(int num){
+            Node* ptr = new Node;
+            ptr->data = num;
+            ptr->next = nullptr;
+
+            if(head == nullptr || head->data >= ptr->data) {
+                ptr->next = head;
+                head = ptr;
+                return;
+            }
+
+            Node* temp = head;
+             while (temp->next != nullptr && temp->next->data < ptr->data) {
+                temp = temp->next;
+            }
+
+            ptr->next = temp->next;
+            temp->next = ptr;
+        }
+
+        int deleteNum(int num) {
+            Node* current = head;
+            Node* previous = nullptr;
+            int deleteVal;
+
+            while (current != nullptr && current->data != num) {
+                previous = current;
+                current = current->next;
+            }
+
+            if (current == nullptr) {
+                return -1;
+            }
+
+            if (previous == nullptr) {
+                head = current->next;
+            } else {
+                previous->next = current->next;
+            }
+            deleteVal = current->data;
+            delete current;
+            return deleteVal;
+        }
+
+        void print(){
+            Node* temp = head;
+            
+            ofstream fout("text_output.txt", ios::app);
+            while(temp != nullptr) {
+                fout << temp->data << " ";
+                temp = temp->next;
+            }
+            fout << endl;
+            fout.close();
+        }
+
+        void writeToFile(){
+            Node* temp;
+            temp = head;
+
+            ofstream fout("text_output.txt", ios::app);
+
+            fout << "\nSorted list created" << endl;
+            while (temp != nullptr) {
+                fout << "list added " << temp->data << endl;
+                temp = temp->next;
+            }
+            fout << "list deleted " << deletedValue << endl;
+            print();
         }
 };
 
@@ -311,6 +419,7 @@ int main() {
     LinkedList list;
     LinkedStack stack;
     BinarySearchTree bst;
+    SortedLinkedList sll;
 
     Node* root;
     root = nullptr;
@@ -384,12 +493,29 @@ int main() {
                     bst.inorder(root);
                 }
             }
+
+            if(operation == "sortedList"){
+                if(subOperation == "add"){
+                    int value;
+                    seperate >> value;
+                    sll.insert(value);
+                }
+                else if(subOperation == "print"){
+                    sll.print();
+                }
+                else if(subOperation == "delete"){
+                    int value;
+                    seperate >> value;
+                    sll.deletedValueFunc(value);
+                }
+            }
         }
 
     file.close();
     list.writeToFile();
     stack.writeToFile();
     bst.writeToFile(deletedValue);
-    
+    sll.writeToFile();
+
     return 0;
 }
