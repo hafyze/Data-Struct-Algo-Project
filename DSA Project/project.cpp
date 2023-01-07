@@ -5,6 +5,7 @@
 
 using namespace std;
 
+//struct declared for all data structure
 struct Node {
     int data;
     Node* next;
@@ -16,6 +17,7 @@ struct Node {
 //LINKED LIST CLASS
 class LinkedList{
     private:
+        //DECLARED TO PRINT TO THE OUTPUT
         int minimumValue;
         int maximumValue;
         int deleteValue;
@@ -44,6 +46,8 @@ class LinkedList{
 
             Node* current = head;
             while(current){
+                // WHEN CURRENT DATA IS LOWER THAN MINIMUM,
+                // IT ASSIGNS TO MINIMUM VARIABLE
                 if(current->data < minimumValue){
                     minimumValue = current->data;
                 }
@@ -72,8 +76,9 @@ class LinkedList{
             // Open the output file.
             ofstream fout("text_output.txt");
 
-            // Write the list to the output file.
+            //WRITES UPON THE INPUT FILE OPERATION
             fout << "list created" << endl;
+            //LOOP TO ACCESS ALL THE LIST ADDED
             while (temp != nullptr) {
                 fout << "list added " << temp->data << endl;
                 temp = temp->next;
@@ -231,9 +236,9 @@ class LinkedStack{
             print(fout);
             fout.close();
         }
-
+        
+        //WRITES THE VALUE BY APPENDING TO THE OUTPUT FILE
         void print(ofstream& out) {
-            // Write the values of all nodes in the stack to the output file.
             Node* current = top;
             while (current) {
                 out << current->data << " ";
@@ -243,14 +248,16 @@ class LinkedStack{
 
 };
 
+//BINARY SEARCH TREE START
 class BinarySearchTree {
     private:
         Node* root;
         int deletedValue;
     public:
+        //CONSTRUCTOR TO INITALISE ROOT
         BinarySearchTree(){root=nullptr;}
 
-
+        //FUNCTION THAT INSERTS THE NUM AT NODES BY TURN
         void insert(Node*& root, int num) {
             if (root == nullptr) {
                 root = new Node{num, nullptr, nullptr};
@@ -264,7 +271,7 @@ class BinarySearchTree {
             }
         }
 
-
+        //DELETES THE TARGETED NUM/NODE
         int deleteNum(Node*& root, int num) {
             int deleteValue;
             if(root == nullptr){
@@ -305,6 +312,7 @@ class BinarySearchTree {
             return deleteValue;
         }
 
+        //TRAVERSE THE BINARY TREE INORDER WAY
         void inorder(Node* root) {
             if(root == nullptr){
                 return;
@@ -314,6 +322,7 @@ class BinarySearchTree {
                 inorder(root->right);
         }
 
+        //APPENDS THE OUTPUT TO THE FILE
         void writeToFile(int delNum){
             Node* temp;
             temp = root;
@@ -330,6 +339,7 @@ class BinarySearchTree {
         }
 };
 
+// SORTED LINKED LIST STARTS
 class SortedLinkedList{
     private:
         Node* head;
@@ -339,10 +349,12 @@ class SortedLinkedList{
             head = nullptr;
         }
 
+        //SET THE DELETED VALUE 
         void deletedValueFunc(int num){
             deletedValue = deleteNum(num);
         }
 
+        //INSERTS THE NUMBER RETRIEVE FROM INPUT FILE
         void insert(int num){
             Node* ptr = new Node;
             ptr->data = num;
@@ -363,6 +375,7 @@ class SortedLinkedList{
             temp->next = ptr;
         }
 
+        //DELETES NUMBER FROM INPUT FILE
         int deleteNum(int num) {
             Node* current = head;
             Node* previous = nullptr;
@@ -387,6 +400,7 @@ class SortedLinkedList{
             return deleteVal;
         }
 
+        //PRINTS THE CURRENT SORTED LINKED LIST
         void print(){
             Node* temp = head;
             
@@ -399,6 +413,7 @@ class SortedLinkedList{
             fout.close();
         }
 
+        //APPENDS THE OUTPUT TO FILE
         void writeToFile(){
             Node* temp;
             temp = head;
@@ -423,7 +438,8 @@ int main() {
 
     Node* root;
     root = nullptr;
-    // OPEN INPUT FILE
+
+        // OPEN INPUT FILE
         ifstream file("text_input.txt");
         ofstream fout("output_text.txt", ios::app);
         string line;
@@ -443,24 +459,30 @@ int main() {
             
             //PROCESS STARTS
             if(operation == "list"){
-                
+                //CONDITION IS RUN BASED ON SUBOPERATION STRING
                 if (subOperation == "add") {
                     int value;
+                    //INITIALISED THE VALUE OF SEPERATE 
                     seperate >> value;
+                    //LIST OBJECT CALLS ADD FUNCTION TO INSERT VALUE RECEIVED
                     list.add(value);
                 } 
                 else if(subOperation == "min") {
+                    //FINDS MINIMUM VALUE OF THE LIST
                     list.minFind();
                     }
                 else if(subOperation == "max") {
+                    //FINDS MAXIMUM VALUE OF THE LIST
                     list.maxFind();
                 }
                 else if(subOperation == "delete"){
+                    //DELETES THE TARGET VALUE
                     int value;
                     seperate >> value;
                     list.deletedValueFunc(value);
                 }
                 else if(subOperation == "search"){
+                    //SEARCH THE TARGET VALUE
                     int value;
                     seperate >> value;
                     list.search(value);
@@ -510,8 +532,9 @@ int main() {
                 }
             }
         }
-
+    //CLOSES THE INPUT FILE
     file.close();
+    //CALLS TO WRITE THE OUTPUT TO THE FILE
     list.writeToFile();
     stack.writeToFile();
     bst.writeToFile(deletedValue);
