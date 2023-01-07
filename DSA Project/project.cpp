@@ -1,3 +1,20 @@
+// *********************************************************  
+// Program: YOUR_FILENAME.cpp  
+// Course: DCP5301 DSA      
+// Tutorial section: TL4L
+// Trimester: 2210
+// Member_1: ID | NAME | EMAIL | PHONE
+// Member_2: 1211201542 | Mohamad Zulhafiz | 1211201542@student.mmu.edu.my | 013-4336103
+// Member_3: ID | NAME | EMAIL | PHONE
+// Member_4: ID | NAME | EMAIL | PHONE     
+// *********************************************************
+// Task Distribution
+// Member_1:  
+// Member_2:  Make the code for linked list and retrieving the input from the file and display it to the output of another file 
+// Member_3:  
+// Member_4:
+// *********************************************************
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
