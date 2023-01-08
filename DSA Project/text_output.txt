@@ -1,12 +1,13 @@
 list created
+list added 55
 list added 100
 list added 20
 list added 10
 Minimum value: 10
 Maximum value: 100
-List deleted : 50
+List deleted : 1
 Search found : 20
-100 20 10 
+55 100 20 10 
 stack created
 stack added 100
 stack added 20
