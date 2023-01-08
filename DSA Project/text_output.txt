@@ -1,5 +1,5 @@
 list created
-list added 55
+list added 65
 list added 100
 list added 20
 list added 10
@@ -7,15 +7,18 @@ Minimum value: 10
 Maximum value: 100
 List deleted : 1
 Search found : 20
-55 100 20 10 
+65 100 20 10 
 stack created
 stack added 100
 stack added 20
 stack added 10
 stack deleted : 50
 100 20 10 
-bst constructed
-bst deleted 0
+bst created
+bst added10
+bst added20
+bst deleted 50
+
 Sorted list created
 list added 10
 list added 50

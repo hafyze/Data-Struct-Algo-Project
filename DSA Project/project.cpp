@@ -1,5 +1,5 @@
 // *********************************************************  
-// Program: YOUR_FILENAME.cpp  
+// Program: project.cpp  
 // Course: DCP5301 DSA      
 // Tutorial section: TL4L
 // Trimester: 2210
@@ -9,10 +9,10 @@
 // Member_4: 1211200183 | Muhammad Yazid Bin Shariful Azhar| 1211200183@student.mmu.edu.my | 019-4716930     
 // *********************************************************
 // Task Distribution
-// Member_1:  
+// Member_1:  Make the code for sorted linked list and retrieving the input from the file and display it to the output of another file
 // Member_2:  Make the code for linked list and retrieving the input from the file and display it to the output of another file 
-// Member_3:  Make the code for Linked Stack
-// Member_4:  Make the code for Binary Search Tree
+// Member_3:  Make the code for Linked Stack and retrieving the input from the file and display it to the output of another file
+// Member_4:  Make the code for Binary Search Tree and retrieving the input from the file and display it to the output of another file
 // *********************************************************
 
 #include <iostream>
@@ -267,95 +267,127 @@ class LinkedStack{
 
 //BINARY SEARCH TREE START
 class BinarySearchTree {
-    private:
-        Node* root;
-        int deletedValue;
-    public:
-        //CONSTRUCTOR TO INITALISE ROOT
-        BinarySearchTree(){root=nullptr;}
+ private:
+    int deletedValue;
+  struct Node{
+        
+        int data;
+        Node* left;
+        Node* right;
+        Node* next;
+        Node(int data) : data(data), left(nullptr), right(nullptr) {}
+  };
+  
+  Node* root;
 
-        //FUNCTION THAT INSERTS THE NUM AT NODES BY TURN
-        void insert(Node*& root, int num) {
-            if (root == nullptr) {
-                root = new Node{num, nullptr, nullptr};
-                return;
-            }
-            if (num < root->data) {
-                insert(root->left, num);
-            } 
-            else{
-                insert(root->right, num);
-            }
-        }
 
-        //DELETES THE TARGETED NUM/NODE
-        int deleteNum(Node*& root, int num) {
-            int deleteValue;
-            if(root == nullptr){
-                return -1;
-            }
+  void addHelper(int data, Node*& node) {
+    
+    if (!node) {
+      node = new Node(data);
+      return;
+    }
 
-            if(num < root->data){
-                return deleteNum(root->left, num);
-            }
-            else if(num > root->data){
-                return deleteNum(root->right, num);
-            }
-            else if(root->left == nullptr){
-                deleteValue = root->data;
-                Node* temp = root;
-                root = root->right;
-                deleteValue = temp->data;
-                delete temp;
-                return deleteValue;
-            }
-            else if(root->right == nullptr){
-                deleteValue = root->data;
-                Node* temp = root;
-                root = root->left;
-                deleteValue = temp->data;
-                delete temp;
-                return deleteValue;
-            }
-            else{
-                Node* minNode = root->right;
+    if (data < node->data) {
+      addHelper(data, node->left);
+    } else {
+      addHelper(data, node->right);
+    }
+  }
 
-                while(minNode->left != nullptr){
-                    minNode = minNode->left;
-                    root->data = minNode->data;
-                    return deleteNum(root->right, minNode->data);
-                }
-            }
-            return deleteValue;
-        }
+  Node* findMinNode(Node* node) {
+    while (node->left) {
+      node = node->left;
+    }
+    return node;
+  }
 
-        //TRAVERSE THE BINARY TREE INORDER WAY
-        void inorder(Node* root) {
-            if(root == nullptr){
-                return;
-            }
-                inorder(root->left);
-                //cout << root->data << " ";
-                inorder(root->right);
-        }
+  void deleteHelper(int data, Node*& node) {
+    if (!node) {
+      return;
+    }
 
-        //APPENDS THE OUTPUT TO THE FILE
-        void writeToFile(int delNum){
-            Node* temp;
-            temp = root;
-            // Write the list to the output file.
-            ofstream fout("text_output.txt", ios::app);
-            fout << "\nbst constructed" << endl;
-            while(temp != nullptr){
-                inorder(temp->left);
-                fout << temp->data << " ";
-                inorder(temp->right);
-            }
-            fout << "bst deleted " << delNum;
-            fout.close();
-        }
+    if (data < node->data) {
+      deleteHelper(data, node->left);
+    } else if (data > node->data) {
+      deleteHelper(data, node->right);
+    } else {
+      // Case 1: No children
+      if (!node->left && !node->right) {
+        deletedValue = node->data;
+        delete node;
+        node = nullptr;
+      }
+      // Case 2: One child
+      else if (!node->left) {
+        Node* temp = node;
+        node = node->right;
+        deletedValue = temp->data;
+        delete temp;
+
+      } else if (!node->right) {
+        Node* temp = node;
+        node = node->left;
+        delete temp;
+      }
+      // Case 3: Two children
+      else {
+        Node* temp = findMinNode(node->right);
+        node->data = temp->data;
+        deleteHelper(temp->data, node->right);
+      }
+    }
+  }
+
+  void inorderHelper(Node* node) {
+    if (!node) {
+      return;
+    }
+
+    inorderHelper(node->left);
+    cout << node->data << " ";
+    inorderHelper(node->right);
+  }
+
+ public:
+  BinarySearchTree() : root(nullptr) {}
+
+  void add(int data) {
+    addHelper(data, root);
+  }
+
+  void deleteNode(int data) {
+    deleteHelper(data, root);
+  }
+
+  void inorder() {
+    inorderHelper(root);
+    //cout << endl;
+    
+  }
+
+    void traverse(Node* ptr, ofstream& fout){
+        if(ptr == nullptr) return;
+        traverse(ptr->left, fout);
+        fout << "bst added" << ptr->data << endl;
+        traverse(ptr->right, fout);
+    }
+
+    void writeToFile(){
+        Node * ptr;
+        ptr = root;
+
+        if(ptr == nullptr) return;
+        ofstream fout("text_output.txt" ,ios::app);
+        fout << "\nbst created" << endl;
+        traverse(ptr->left, fout);
+        traverse(ptr->right, fout);
+
+       
+        fout << "bst deleted " << deletedValue << endl;
+        inorder();
+  }
 };
-
 // SORTED LINKED LIST STARTS
 class SortedLinkedList{
     private:
@@ -448,17 +480,16 @@ class SortedLinkedList{
 };
 
 int main() {
+    int num[100];
     LinkedList list;
     LinkedStack stack;
     BinarySearchTree bst;
     SortedLinkedList sll;
 
-    Node* root;
-    root = nullptr;
-
+    Node* ptr;
+    ptr = new Node;
         // OPEN INPUT FILE
         ifstream file("text_input.txt");
-        ofstream fout("output_text.txt", ios::app);
         string line;
         int deletedValue;
 
@@ -517,19 +548,18 @@ int main() {
                     stack.deleteNumber(value);
                 }
             }
-            
             if(operation == "bst"){
                 if(subOperation == "add"){
                     int value;
                     seperate >> value;
-                    bst.insert(root, value);
+                    bst.add(value);
                 }else if(subOperation == "delete"){
                     int value;
                     seperate >> value;
-                    deletedValue = bst.deleteNum(root, value);
+                    bst.deleteNode(value);
                 }
                 else if(subOperation == "inorder"){
-                    bst.inorder(root);
+                    bst.inorder();
                 }
             }
 
@@ -549,12 +579,13 @@ int main() {
                 }
             }
         }
+    ofstream fout("text_output.txt", ios::app);
     //CLOSES THE INPUT FILE
     file.close();
     //CALLS TO WRITE THE OUTPUT TO THE FILE
     list.writeToFile();
     stack.writeToFile();
-    bst.writeToFile(deletedValue);
+    bst.writeToFile();
     sll.writeToFile();
 
     return 0;
