@@ -6,7 +6,7 @@ list added 10
 Minimum value: 10
 Maximum value: 100
 List deleted : 1
-Search found : 20
+Search found : 10
 65 100 20 10 
 stack created
 stack added 100

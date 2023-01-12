@@ -368,6 +368,7 @@ class BinarySearchTree {
 
     void traverse(Node* ptr, ofstream& fout){
         if(ptr == nullptr) return;
+
         traverse(ptr->left, fout);
         fout << "bst added" << ptr->data << endl;
         traverse(ptr->right, fout);
@@ -387,7 +388,13 @@ class BinarySearchTree {
         fout << "bst deleted " << deletedValue << endl;
         inorder();
   }
+
+    // friends void display();
 };
+
+void display(){
+
+}
 // SORTED LINKED LIST STARTS
 class SortedLinkedList{
     private:

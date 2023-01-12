@@ -5,8 +5,8 @@ list add 100
 list add 65
 list min
 list max
-list delete 50
-list search 20
+list delete 30
+list search 10
 list print
 LinkedStack stack
 stack add 10
